@@ -6,7 +6,9 @@ const errorhandling=require("./middlewares/errorhandling.js")
 require("dotenv").config()
 
 const corsOptions={
-origin:"http://localhost:5173/"
+origin:"http://localhost:5173",
+methods:['GET','POST','PUT','DELETE'],
+credentials:true
 }
 //cross origin resources sharing
 app.use(cors(corsOptions))
