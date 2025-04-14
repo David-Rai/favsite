@@ -12,7 +12,8 @@ router.post("/add",addSite)
 router.delete('/delete/:id',deleteSite)
 
 //updating the site
-router.put('/update/',updateSite)
+router.put('/update',updateSite)
+
 
 module.exports = router
 
