@@ -67,8 +67,6 @@ const deleteSite = async (req, res, next) => {
         return next(error)
     }
 
-    await db.execute("alter table sites auto_increment=1")
-
     res.json(results)
 }
 
