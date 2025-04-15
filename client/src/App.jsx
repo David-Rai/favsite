@@ -42,9 +42,9 @@ const App = () => {
   //editing the site
   const handleDelete = async (index) => {
     try {
-      const res = await fetch("http://localhost/delete", {
-        method: "DELETE",
-        credentials: 'include'
+      alert(index)
+      const res = await fetch(`http://localhost:1111/delete/${index}`, {
+        method: "DELETE"
       })
       const results = await res.json()
       console.log(results)
@@ -92,7 +92,7 @@ const App = () => {
               return (
                 <div className="group relative hover:bg-slate-200 transition flex items-center justify-center h-[100px] w-[100px]" key={index} >
                   <RiDeleteBin6Line
-                    onClick={() => handleDelete(index)}
+                    onClick={() => handleDelete(s.id)}
                     className="group-hover:block text-red-500
                   hidden absolute m-1 right-0 top-0" />
                   <div className="m-3 bg-gray-300 rounded-full flex items-center justify-center h-1/2 w-1/2" >
