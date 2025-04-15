@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react"
+import { RxCross1 } from "react-icons/rx";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdModeEditOutline } from "react-icons/md";
@@ -7,14 +8,12 @@ import { IoMdAdd } from "react-icons/io";
 const App = () => {
   const [site, setSite] = useState([])
   const formRef = useRef(null)
-  const [name, setName] = useState("")
   const inputRef = useRef(null)
   const [updating,setUpdating]=useState(false)
   const [id,setID]=useState(null)
   async function getData() {
     const res = await fetch('http://localhost:1111/', {
       method: "get",
-      credentials: 'include'
     })
     const data = await res.json()
     setSite(data)
@@ -35,7 +34,6 @@ const App = () => {
 
   //getting the data
   const handleSubmit = () => {
-    setName(inputRef.current.value)
     handleAdd()
     postData()
   }
@@ -54,6 +52,7 @@ const App = () => {
   }
   //posting the data
   async function postData() {
+const name=inputRef.current.value
 
     try {
       const res = await fetch("http://localhost:1111/add", {
@@ -62,22 +61,21 @@ const App = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ site_path:name })
-
       })
-      inputRef.current.value = ""
-      getData()
 
     } catch (err) {
       console.log(err)
     }
 
+    getData()
+          inputRef.current.value = ""
   }
 
   //toggle updating the sites path
   const handleUpdate = async (index) => {
+    setID(index)
     handleAdd()
     setUpdating(true)
-    setID(index)
   }
 
   const handleUpdating=async ()=>{
@@ -115,11 +113,12 @@ const App = () => {
             <form
               onSubmit={(e)=>{
                 e.preventDefault()
-                updating ? handleUpdating() : handleSubmit(e) 
+                updating ? handleUpdating() : handleSubmit() 
               }}
               className="absolute bg-black/40 h-[160px]
              translate z-50 rounded-md lg:w-[40%] flex
              w-[80%] backdrop-blur-[20px]  items-center justify-center">
+              <RxCross1 size={24} onClick={handleAdd} className="absolute top-[10px] right-[10px]"/>
               <input type="text" ref={inputRef} name="inputdata" className="h-[40px] pl-3 rounded-md" placeholder="enter the site path" />
               <button type="submit" className="h-[40px] w-[120px] rounded-md  text-white m-2 bg-blue-600">{updating ? "UPDATE" : "ADD"}</button>
             </form>
