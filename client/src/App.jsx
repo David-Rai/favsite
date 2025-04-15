@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from "react"
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { IoMdAdd } from "react-icons/io";
 
 const App = () => {
   const [site, setSite] = useState([])
@@ -33,11 +35,23 @@ const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     setName(inputRef.current.value)
-    inputRef.current.value=""
     handleAdd()
     postData()
   }
 
+  //editing the site
+  const handleDelete = async (index) => {
+    try {
+      const res = await fetch("http://localhost/delete", {
+        method: "DELETE",
+        credentials: 'include'
+      })
+      const results = await res.json()
+      console.log(results)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   //posting the data
   async function postData() {
 
@@ -50,6 +64,8 @@ const App = () => {
         body: JSON.stringify({ site_path })
 
       })
+      inputRef.current.value = ""
+
     } catch (err) {
       console.log(err)
     }
@@ -74,8 +90,11 @@ const App = () => {
           {
             site ? site.map((s, index) => {
               return (
-                <div className="relative hover:bg-slate-200 transition flex items-center justify-center h-[100px] w-[100px]" key={index} >
-                  <BsThreeDotsVertical className="absolute right-0 " />
+                <div className="group relative hover:bg-slate-200 transition flex items-center justify-center h-[100px] w-[100px]" key={index} >
+                  <RiDeleteBin6Line
+                    onClick={() => handleDelete(index)}
+                    className="group-hover:block text-red-500
+                  hidden absolute m-1 right-0 top-0" />
                   <div className="m-3 bg-gray-300 rounded-full flex items-center justify-center h-1/2 w-1/2" >
                     <a href={s.site_path} target="_blank">
                       <img src={s.img_path} className="" />
@@ -89,8 +108,10 @@ const App = () => {
           }
           <div
             onClick={handleAdd}
-            className="add h-[100px] w-[100px] bg-red-400 flex itmems">
-
+            className="add h-[50px] w-[50px]
+            rounded-full
+             bg-red-400 flex items-center justify-center">
+            <IoMdAdd size={40} />
           </div>
         </section>
       </main>
