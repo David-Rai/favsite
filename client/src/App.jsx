@@ -7,7 +7,7 @@ import { IoMdAdd } from "react-icons/io";
 const App = () => {
   const [site, setSite] = useState([])
   const formRef = useRef(null)
-  const [site_path, setName] = useState("")
+  const [name, setName] = useState("")
   const inputRef = useRef(null)
   const [updating,setUpdating]=useState(false)
   const [id,setID]=useState(null)
@@ -34,8 +34,7 @@ const App = () => {
   }
 
   //getting the data
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = () => {
     setName(inputRef.current.value)
     handleAdd()
     postData()
@@ -62,7 +61,7 @@ const App = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ site_path })
+        body: JSON.stringify({ site_path:name })
 
       })
       inputRef.current.value = ""
@@ -76,16 +75,14 @@ const App = () => {
 
   //toggle updating the sites path
   const handleUpdate = async (index) => {
-    console.log("update toggle",index)
     handleAdd()
-    setUpdating(!updating)
+    setUpdating(true)
     setID(index)
   }
 
   const handleUpdating=async ()=>{
-    console.log("updating")
-setName(inputRef.current.value)
-console.log(inputRef.current.value)
+    const updatedName=inputRef.current.value
+    inputRef.current.value=""
 
     try {
       const res = await fetch(`http://localhost:1111/update`, {
@@ -93,16 +90,17 @@ console.log(inputRef.current.value)
         headers:{
           "Content-Type":"application/json"
         },
-        body:JSON.stringify({site_path,id})
+        body:JSON.stringify({site_path:updatedName,id})
       })
       const results=await res.json()
-      console.log(results)
     } catch (err) {
       console.log(err)
     }
 
+
+    getData()
     handleAdd()
-    setUpdating(!updating)
+    setUpdating(false)
   }
 
   return (
