@@ -3,11 +3,12 @@ const db = require("../models/db.js")
 
 //sending all the sites
 const getAll = async (req, res) => {
-    const query = "select * from sites"
+
+    const query = "select * from sites;"
     const [rows] = await db.execute(query)
 
     if (rows.lenght === 0) {
-        res.status(500).json({ message: "no rows available" })
+       return res.status(500).json({ message: "no rows available" })
     }
 
     res.json(rows)
@@ -26,7 +27,7 @@ const addSite = async (req, res, next) => {
         const error = new Error("data is not inserted")
         error.status = 500
         return next(error)
-    }
+    }   
 
     const query = "insert into sites (site_path,img_path,name) values(?,?,?)"
     const results = await db.execute(query, [newSite.site_path, siteImage, newSite.name])

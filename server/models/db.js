@@ -1,6 +1,5 @@
 const mysql=require("mysql2")
-const process=require('./config.js')
-
+require("dotenv").config()
 
 const pool=mysql.createPool({
     host:process.env.HOST,

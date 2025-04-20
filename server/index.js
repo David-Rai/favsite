@@ -20,16 +20,9 @@ app.use(express.urlencoded({extended:false}))
 //initilization the routes
 app.use(router)
 
-// Place this at the very end, after all other routes
-// app.all('*', (req, res) => {
-//     res.status(404).json({
-//       success: false,
-//       message: 'Route not found',
-//     });
-//   });
 
 //error handling
 app.use(errorhandling)
 
 const port=process.env.PORT
-app.listen(port,()=> console.log("server is running"))
+app.listen(port,()=> console.log("server is running",port))
