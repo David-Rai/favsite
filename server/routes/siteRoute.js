@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { getAll,addSite,deleteSite,updateSite } = require("../controllers/siteController.js")
 const {body,validationResult,param}=require("express-validator")
+const auth=require("../auth/auth.js")
 
 //getting all the data from the database
 router.get("/get", getAll)

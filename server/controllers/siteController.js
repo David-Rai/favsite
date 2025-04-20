@@ -3,7 +3,6 @@ const db = require("../models/db.js")
 
 //sending all the sites
 const getAll = async (req, res) => {
-
     const query = "select * from sites;"
     const [rows] = await db.execute(query)
 

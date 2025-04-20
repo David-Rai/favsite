@@ -4,6 +4,7 @@ const cors=require("cors")
 const siteRouter=require('./routes/siteRoute.js')
 const userRouter=require('./routes/userRoute.js')
 const errorhandling=require("./middlewares/errorhandling.js")
+const cookieParser = require('cookie-parser')
 require("dotenv").config()
 
 const corsOptions={
@@ -17,6 +18,7 @@ app.use(cors(corsOptions))
 //middlewares
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
+app.use(cookieParser())
 
 //initilization the routers
 app.use(siteRouter)
