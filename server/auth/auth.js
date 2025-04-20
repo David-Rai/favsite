@@ -1,19 +1,22 @@
-const jwt=require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
-const auth=(req,res,next)=>{
-const {token}=req.cookies
+const auth = (req, res, next) => {
+  const { token } = req.cookies;
 
-if(!token){
-    return res.redirect('/register')
-}
+  if (!token) {
+    return res.status(401).json({ success: false, message: 'Unauthorized'});
+  }
 
+  const secretKey = process.env.SECRET;
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ success: false, message: 'Token is not valid' });
+    }
 
-const secretKey=process.env.SECRET
-jwt.verify(token,secretKey,(err,decoded)=>{
-    req.user=decoded
-})
+    // Attach the user information to the request object
+    req.user = decoded;
+    next();
+  });
+};
 
-next()
-}
-
-module.exports=auth
+module.exports = auth;

@@ -46,7 +46,6 @@ verify()
       });
 
       const result = await res.json();
-      console.log(result)
       
       if (result.status === 201) {
      navigate('/login')

@@ -7,16 +7,17 @@ import { IoMdAdd } from "react-icons/io";
 const App = () => {
   //server path
   const serverPath=import.meta.env.VITE_SERVER
-
   const [site, setSite] = useState([])
   const formRef = useRef(null)
   const inputRef = useRef(null)
   const nameRef = useRef(null)
   const [updating, setUpdating] = useState(false)
   const [id, setID] = useState(null)
+
   async function getData() {
     const res = await fetch(`${serverPath}/get`, {
       method: "get",
+      credentials:'include'
     })
     const data = await res.json()
     setSite(data)
@@ -41,13 +42,16 @@ const App = () => {
   }
 
   //editing the site
-  const handleDelete = async (index) => {
-    console.log(index)
+  const handleDelete = async (id) => {
     try {
-      const res = await fetch(`${serverPath}/delete/${index}`, {
-        method: "DELETE"
+      const res = await fetch(`${serverPath}/delete/`, {
+        method: "DELETE",
+        credentials:'include',
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({id})
       })
-      const results = await res.json()
       getData()
     } catch (err) {
       console.log(err)
@@ -61,6 +65,7 @@ const App = () => {
     try {
       const res = await fetch(`${serverPath}/add`, {
         method: "POST",
+        credentials:'include',
         headers: {
           "Content-Type": "application/json",
         },
@@ -91,6 +96,7 @@ const App = () => {
     try {
       const res = await fetch(`${serverPath}/update`, {
         method: "PUT",
+        credentials:"include",
         headers: {
           "Content-Type": "application/json"
         },

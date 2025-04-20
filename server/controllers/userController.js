@@ -33,24 +33,21 @@ const register = (req, res, next) => {
       error.status = 500;
       return next(error);
     }
-    
-  const secretKey = process.env.SECRET;
-  const payload = {
-    email,
-  };
-  const token = jwt.sign(payload, secretKey);
-  res.cookie("token", token, {
-    path: "/",
-    sameSite: "lax",
-    httpOnly: true,
-    // secure:false
-  });
-
-  
-  res.json({
-    status: 201,
-    message: "successfully registered",
-  });
+    const secretKey = process.env.SECRET;
+    const payload = {
+      email,user_id:results[0].insertId
+    };
+    const token = jwt.sign(payload, secretKey);
+    res.cookie("token", token, {
+      path: "/",
+      sameSite: "lax",
+      httpOnly: true,
+      // secure:false
+    });
+    res.json({
+      status: 201,
+      message: "successfully registered",
+    });
   });
 };
 
@@ -77,9 +74,9 @@ const login = async (req, res, next) => {
     }
     if (result) {
       const payload = {
-        email,
+        email,user_id:rows[0].user_id
       };
-      const secretKey=process.env.SECRET
+      const secretKey = process.env.SECRET;
       const token = jwt.sign(payload, secretKey);
       res.cookie("token", token, {
         path: "/",
@@ -94,32 +91,30 @@ const login = async (req, res, next) => {
       });
     }
   });
-
-
 };
 
 //verification
-const verify=(req,res)=>{
-  const {token}=req.cookies
-  
-  if(!token){
-      return res.json({auth:false})
+const verify = (req, res) => {
+  const { token } = req.cookies;
+
+  if (!token) {
+    return res.json({ auth: false });
   }
-  
-  
-  const secretKey=process.env.SECRET
-  jwt.verify(token,secretKey,(err,decoded)=>{
-    if(err){
+
+  const secretKey = process.env.SECRET;
+  jwt.verify(token, secretKey, (err, decoded) => {
+    if (err) {
       const error = new Error("jwt not valid");
       error.status = 500;
       return next(error);
     }
 
- return   res.json({auth:true,user:decoded})
-  }) 
-}
+    return res.json({ auth: true, user: decoded });
+  });
+};
+
 module.exports = {
   register,
   login,
-  verify
+  verify,
 };

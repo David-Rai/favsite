@@ -41,7 +41,6 @@ const Login = () => {
         body: JSON.stringify(data),
       });
       const result = await res.json();
-
       if (result.success) {
         navigate("/app");
       } else {
