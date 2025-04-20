@@ -31,7 +31,6 @@ const App = () => {
     formRef.current.classList.toggle("hidden");
     formRef.current.classList.toggle("flex");
   }
-
   //getting the data
   const handleSubmit = () => {
     handleAdd()
@@ -111,6 +110,10 @@ const App = () => {
       <main className="h-screen bg-softslate w-full flex px-[20px] flex-col items-center justify-center">
         <h1 className="p-4 text-4xl text-[#BAC7E3]">Favourite site</h1>
         <section className=" flex flex-wrap items-center ">
+       
+       
+       
+       {/* ADDING AND UPDATING THE SITE */}
           <div
             ref={formRef}
             className="cover absolute h-full 
@@ -130,6 +133,9 @@ const App = () => {
             </form>
           </div>
 
+
+
+      {/* Favourite sites rendering */}
           {
             site.length > 0 ? site.map((s, index) => {
               return (
@@ -148,6 +154,9 @@ const App = () => {
               :
               <h1>no favourite pages</h1>
           }
+         
+
+         {/* add new favourite option */}
           <div className="hover:bg-[#474648]/60  transition flex items-center justify-center h-[120px] w-[120px]">
             <div
               onClick={handleAdd}
