@@ -21,7 +21,6 @@ router.delete('/delete/:id',[
 router.put('/update',[
     body('site_path').notEmpty().withMessage("no empty field allowed"),
     body('name').notEmpty().withMessage("enter the name"),
-    param('id').isInt().withMessage("enter the proper id")
 
 ],updateSite)
 
