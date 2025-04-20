@@ -24,6 +24,7 @@ const register = (req, res, next) => {
       error.status = 500;
       return next(error);
     }
+
     const query = "insert into users (name,email,password) values (?,?,?)";
     const results = await db.execute(query, [name, email, hash]);
 
@@ -32,11 +33,8 @@ const register = (req, res, next) => {
       error.status = 500;
       return next(error);
     }
-  });
-
+    
   const secretKey = process.env.SECRET;
-
-  //creating the token for authentication
   const payload = {
     email,
   };
@@ -48,9 +46,11 @@ const register = (req, res, next) => {
     // secure:false
   });
 
+  
   res.json({
     status: 201,
     message: "successfully registered",
+  });
   });
 };
 
@@ -87,13 +87,15 @@ const login = async (req, res, next) => {
         httpOnly: true,
         // secure:false
       });
+
+      res.json({
+        success: true,
+        message: "login successfully",
+      });
     }
   });
 
-  res.json({
-    success: true,
-    message: "login successfully",
-  });
+
 };
 
 //verification
