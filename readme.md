@@ -1,3 +1,6 @@
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Build](https://img.shields.io/badge/build-passing-brightgreen)
+
 ## favourite website collection(favsite)
 - This website helps to store the favourite website with edit feature and also shows the logo of theat website
 
