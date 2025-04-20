@@ -4,7 +4,7 @@ const { getAll,addSite,deleteSite,updateSite } = require("../controllers/siteCon
 const {body,validationResult,param}=require("express-validator")
 
 //getting all the data from the database
-router.get("/", getAll)
+router.get("/get", getAll)
 
 //adding the new site
 router.post("/add",[

@@ -12,7 +12,7 @@ const App = () => {
   const [updating, setUpdating] = useState(false)
   const [id, setID] = useState(null)
   async function getData() {
-    const res = await fetch('http://localhost:1111/', {
+    const res = await fetch('http://localhost:1111/get', {
       method: "get",
     })
     const data = await res.json()

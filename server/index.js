@@ -1,7 +1,8 @@
 const express=require('express')
 const app=express()
 const cors=require("cors")
-const router=require('./routes/siteRoute.js')
+const siteRouter=require('./routes/siteRoute.js')
+const userRouter=require('./routes/userRoute.js')
 const errorhandling=require("./middlewares/errorhandling.js")
 require("dotenv").config()
 
@@ -17,8 +18,9 @@ app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
-//initilization the routes
-app.use(router)
+//initilization the routers
+app.use(siteRouter)
+app.use(userRouter)
 
 
 //error handling
