@@ -5,6 +5,9 @@ import { MdModeEditOutline } from "react-icons/md";
 import { IoMdAdd } from "react-icons/io";
 
 const App = () => {
+  //server path
+  const serverPath=import.meta.env.VITE_SERVER
+
   const [site, setSite] = useState([])
   const formRef = useRef(null)
   const inputRef = useRef(null)
@@ -12,7 +15,7 @@ const App = () => {
   const [updating, setUpdating] = useState(false)
   const [id, setID] = useState(null)
   async function getData() {
-    const res = await fetch('http://localhost:1111/get', {
+    const res = await fetch(`${serverPath}/get`, {
       method: "get",
     })
     const data = await res.json()
@@ -39,8 +42,9 @@ const App = () => {
 
   //editing the site
   const handleDelete = async (index) => {
+    console.log(index)
     try {
-      const res = await fetch(`http://localhost:1111/delete/${index}`, {
+      const res = await fetch(`${serverPath}/delete/${index}`, {
         method: "DELETE"
       })
       const results = await res.json()
@@ -55,7 +59,7 @@ const App = () => {
     const name = nameRef.current.value
 
     try {
-      const res = await fetch("http://localhost:1111/add", {
+      const res = await fetch(`${serverPath}/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +89,7 @@ const App = () => {
 
 
     try {
-      const res = await fetch(`http://localhost:1111/update`, {
+      const res = await fetch(`${serverPath}/update`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json"

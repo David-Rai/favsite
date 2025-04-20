@@ -53,7 +53,7 @@ const deleteSite = async (req, res, next) => {
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
-        const error = new Error("data is not inserted")
+        const error = new Error("data is not inserted like")
         error.status = 500
         return next(error)
     }
