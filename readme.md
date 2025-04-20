@@ -4,9 +4,12 @@
 
 ## favourite website collection(favsite)
 - This website helps to store the favourite website with edit feature and also shows the logo of theat website
-
-  Run the development server using `npm run dev`.
-
+- Run the development server using `npm run dev`.
+```bash
+git clone https://github.com/david-rai/favsite.git
+npm install
+npm run dev
+```
 
 ## TECHNOLOGIES
 - FRONTEND (react,vite)
