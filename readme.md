@@ -16,7 +16,7 @@ npm run dev
 - DATABASE (mysql with mysql2 driver)
 - BACKEND (nodejs with express for routing)
 
-#sign up page
+# sign up page
 <img src="./archtecture/Screenshot 2025-04-21 113342.png">
 
 <img src="./archtecture/design.png">
