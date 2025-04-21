@@ -14,6 +14,9 @@
          placeholder:text-gray-600 placeholder:text-sm
            p-2 w-[90%] rounded-md;
   }
+  .labelwrap{
+    @apply w-[90%] flex flex-col items-start;
+  }
   
 
   .cover {

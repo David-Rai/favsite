@@ -1,5 +1,5 @@
 import React from "react";
-import { useRef,useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -53,16 +53,35 @@ const Login = () => {
 
   //   JSX RENDERING
   return (
-    <main>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <input type="email" name="email" placeholder="email" ref={emailRef} />
-        <input
-          type="password"
-          name="password"
-          placeholder="password"
-          ref={passwordRef}
-        />
-        <button type="submit">Get started</button>
+    <main className="h-screen w-full flex bg-bgprimary items-center justify-center">
+      <form
+        className="form justify-evenly h-[40vh]"
+        onSubmit={(e) => handleSubmit(e)}
+      >
+        <div className="labelwrap">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="email"
+            ref={emailRef}
+            className="input w-full"
+          />
+        </div>
+        <div className="labelwrap">
+          <label htmlFor="password">Password</label>
+          <input
+            className="input w-full"
+            type="password"
+            name="password"
+            placeholder="password"
+            ref={passwordRef}
+          />
+        </div>
+
+        <button type="submit" className="button">
+          login
+        </button>
       </form>
     </main>
   );
