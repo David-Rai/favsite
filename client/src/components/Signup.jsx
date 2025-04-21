@@ -3,28 +3,27 @@ import { useState, useEffect } from "react";
 import Login from "./Login";
 import { useNavigate } from "react-router-dom";
 
-
 const Signup = () => {
   const serverPath = import.meta.env.VITE_SERVER;
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
   //verification
-  useEffect(()=>{
-  const verify=async ()=>{
-    const res=await fetch(`${serverPath}/verify`,{
-      method:"GET",
-      credentials:"include"
-    })
-    const result=await res.json()
-    if(result.auth){
-      navigate('/app')
-    }
-  }
-verify()
-  },[])
+  useEffect(() => {
+    const verify = async () => {
+      const res = await fetch(`${serverPath}/verify`, {
+        method: "GET",
+        credentials: "include",
+      });
+      const result = await res.json();
+      if (result.auth) {
+        navigate("/app");
+      }
+    };
+    verify();
+  }, []);
 
   //Registering the data
   const handleSubmit = async (e) => {
@@ -46,11 +45,10 @@ verify()
       });
 
       const result = await res.json();
-      
-      if (result.status === 201) {
-     navigate('/login')
-      }
 
+      if (result.status === 201) {
+        navigate("/login");
+      }
     } catch (err) {
       console.log(err);
     }
@@ -58,19 +56,38 @@ verify()
 
   // rendering the jsx
   return (
-    <main>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <input type="text" name="name" placeholder="username" ref={nameRef} />
-          <input type="email" name="email" placeholder="email" ref={emailRef} />
-          <input
-            type="password"
-            name="password"
-            placeholder="password"
-            ref={passwordRef}
-          />
-          <button type="submit">Get started</button>
-          <button onClick={()=> navigate('/login')}>Login</button>
-        </form>
+    <main className="h-screen w-full flex bg-bgprimary items-center justify-center">
+      <form onSubmit={(e) => handleSubmit(e)} className="form">
+        <h1 className="text-2xl font-medium">Sign up</h1>
+        <input
+          type="text"
+          className="input"
+          name="name"
+          placeholder="username"
+          ref={nameRef}
+        />
+        <input
+          type="email"
+          name="email"
+          className="input"
+          placeholder="email"
+          ref={emailRef}
+        />
+        <input
+          type="password"
+          name="password"
+          className="input"
+          placeholder="password"
+          ref={passwordRef}
+        />
+        <button type="submit" className="button">
+          Get started
+        </button>
+        <p>or</p>
+        <button onClick={() => navigate("/login")} className="button">
+          Login
+        </button>
+      </form>
     </main>
   );
 };

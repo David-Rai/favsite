@@ -7,7 +7,13 @@ export default {
   theme: {
     extend: {
       colors:{
-        softslate:"#383B43"
+        primary:"#4C6ECF",
+        secondary:"#030207",
+        softslate:"#383B43",
+        bgprimary:"#FEFEFE"
+      },
+      fontFamily:{
+        pop:"Poppins"
       }
     },
   },

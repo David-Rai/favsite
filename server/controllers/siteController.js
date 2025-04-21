@@ -95,7 +95,9 @@ const updateSite = async (req, res, next) => {
   const siteImage = `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${site_path}&size=34`;
 
   const query = "update sites set site_path=?,img_path=? ,name=? where id=? and user_id=?";
-  const results = await db.execute(query, [site_path, siteImage, name, id,user_id]);
+  const results = await db.execute(query, [site_path, siteImage, name, id,user_id
+    
+  ]);
 
   //error handling
   if (results[0].affectedRows == 0) {

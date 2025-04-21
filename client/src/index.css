@@ -1,10 +1,28 @@
-
 @tailwind base;
 @tailwind components;
 
-.cover{
-    @apply  absolute h-full 
-    hidden w-full top-0 left-0  items-center justify-center;
+@layer components {
+  #root {
+    @apply font-pop;
+  }
+
+  .button {
+    @apply w-[90%] bg-secondary h-[40px] rounded-md text-white;
+  }
+  .input {
+    @apply border-gray-300 border-[1px]
+         placeholder:text-gray-600 placeholder:text-sm
+           p-2 w-[90%] rounded-md;
+  }
+  
+
+  .cover {
+    @apply absolute h-full hidden w-full top-0 left-0 items-center justify-center;
+  }
+
+  .form {
+    @apply w-[60%] h-[60vh] rounded-md  flex flex-col items-center justify-evenly;
+  }
 }
 
 @tailwind utilities;
