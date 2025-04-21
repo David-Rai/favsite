@@ -125,8 +125,21 @@ const verify = (req, res) => {
   });
 };
 
+//loging out
+const logout=(req,res)=>{
+  console.log(req.cookies)
+
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'None',
+  });
+
+  res.status(200).json({success:true,message:"logout"})
+}
 module.exports = {
   register,
   login,
   verify,
+  logout
 };

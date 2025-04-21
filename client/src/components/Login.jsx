@@ -43,7 +43,6 @@ const Login = () => {
       });
       const result = await res.json();
       setRes(result)
-     console.log(result)
       if (result.success) {
         navigate("/app");
       } 
