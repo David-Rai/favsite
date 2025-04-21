@@ -43,11 +43,10 @@ const Login = () => {
       });
       const result = await res.json();
       setRes(result)
+     console.log(result)
       if (result.success) {
         navigate("/app");
-      } else {
-        console.log(result);
-      }
+      } 
     } catch (err) {
       console.log(err);
     }
@@ -65,7 +64,7 @@ const Login = () => {
           <input
             type="email"
             name="email"
-            placeholder={res?.errors?.errors[1]?.msg || "email"} 
+            placeholder="email"
             ref={emailRef}
             className={`input w-full ${res?.status == 500 && "placeholder:text-red-500" }`}
          />
@@ -76,7 +75,7 @@ const Login = () => {
             className={`input w-full ${res?.status == 500 && "placeholder:text-red-500" }`}
             type="password"
             name="password"
-            placeholder={res?.errors?.errors[2]?.msg || "password"} 
+            placeholder="password"
             ref={passwordRef}
           />
         </div>

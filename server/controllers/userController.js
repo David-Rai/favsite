@@ -4,16 +4,16 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 //register route
+
 const register = async (req, res, next) => {
   //register validation
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    const error = {
-      status: 500,
-      errors
+    const error = new Error("fileds are required");
+    error.status = 500;
+    return next(error);
     };
-    return res.json(error);
-  }
+
 
   const { name, email, password } = req.body;
 
@@ -58,6 +58,7 @@ const register = async (req, res, next) => {
       message: "successfully registered",
     });
   });
+
 };
 
 //LOGIN
@@ -65,12 +66,10 @@ const login = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    const error = {
-      status: 500,
-      errors
+    const error = new Error("fileds are required");
+    error.status = 500;
+    return next(error);
     };
-    return res.json(error);
-  }
 
   const { email, password } = req.body;
   const query = "select * from users where email=?";
@@ -78,8 +77,8 @@ const login = async (req, res, next) => {
 
   // creating the jwt if valid
   bcrypt.compare(password, rows[0].password, (err, result) => {
-    if (err) {
-      const error = new Error("no user found");
+    if (err || !result) {
+      const error = new Error("password is incorrect");
       error.status = 401;
       return next(error);
     }
@@ -90,6 +89,7 @@ const login = async (req, res, next) => {
       };
       const secretKey = process.env.SECRET;
       const token = jwt.sign(payload, secretKey);
+
       res.cookie("token", token, {
         path: "/",
         sameSite: "lax",

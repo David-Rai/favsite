@@ -65,25 +65,25 @@ const Signup = () => {
           type="text"
           className={`input ${res?.status === 500 && "placeholder:text-red-500"}`}
           name="name"
-          placeholder={res?.errors?.errors?.[0]?.msg || "username"}
+          placeholder="name"
           ref={nameRef}
         />
         <input
           type="email"
           name="email"
+          placeholder="email"
           className={`input ${res?.status === 500 && "placeholder:text-red-500"}`}
-          placeholder={res?.errors?.errors?.[2]?.msg || "email"}
           ref={emailRef}
         />
         <input
           type="password"
           name="password"
+          placeholder="password"
           className={`input ${res?.status === 500 && "placeholder:text-red-500"}`}
-          placeholder={res?.errors?.errors?.[3]?.msg || "password"}
           ref={passwordRef}
         />
         {res && (
-          <p className="text-sm text-red-600 w-[90%]">
+          <p className="text-sm text-red-600 w-[90%] text-center">
             {res.message && res.message}
           </p>
         )}
