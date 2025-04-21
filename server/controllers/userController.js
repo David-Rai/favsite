@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 //register route
-const register = (req, res, next) => {
+const register = async (req, res, next) => {
   //register validation
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -16,6 +16,14 @@ const register = (req, res, next) => {
   }
 
   const { name, email, password } = req.body;
+
+  //checking if email exist or not
+  const result = await db.execute("select * from users where email=?", [email]);
+  if (result[0][0].email) {
+    const error = new Error("user existed");
+    error.status = 500;
+    return next(error);
+  }
 
   //encrypting the password
   bcrypt.hash(password, 10, async (err, hash) => {
@@ -35,7 +43,8 @@ const register = (req, res, next) => {
     }
     const secretKey = process.env.SECRET;
     const payload = {
-      email,user_id:results[0].insertId
+      email,
+      user_id: results[0].insertId,
     };
     const token = jwt.sign(payload, secretKey);
     res.cookie("token", token, {
@@ -74,7 +83,8 @@ const login = async (req, res, next) => {
     }
     if (result) {
       const payload = {
-        email,user_id:rows[0].user_id
+        email,
+        user_id: rows[0].user_id,
       };
       const secretKey = process.env.SECRET;
       const token = jwt.sign(payload, secretKey);

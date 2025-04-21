@@ -9,6 +9,7 @@ const Signup = () => {
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const [res,setRes]=useState(null)
 
   //verification
   useEffect(() => {
@@ -45,6 +46,7 @@ const Signup = () => {
       });
 
       const result = await res.json();
+       setRes(result)
 
       if (result.status === 201) {
         navigate("/login");
@@ -80,6 +82,10 @@ const Signup = () => {
           placeholder="password"
           ref={passwordRef}
         />
+        {
+        res && 
+        <p className="text-sm text-red-600 w-[90%]">{res.message}</p>
+        }
         <button type="submit" className="button">
           Get started
         </button>
