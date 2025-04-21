@@ -8,7 +8,10 @@ const cookieParser = require('cookie-parser')
 require("dotenv").config()
 
 const corsOptions={
-origin:"https://favsite.netlify.app/",
+origin: [
+    'https://favsite.netlify.app',
+    'https://favsite.netlify.app/' // Ensure both formats are allowed if necessary
+  ],
 methods:['GET','POST','PUT','DELETE'],
 credentials:true
 }
