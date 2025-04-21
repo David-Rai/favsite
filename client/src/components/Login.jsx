@@ -1,11 +1,12 @@
 import React from "react";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const serverPath = import.meta.env.VITE_SERVER;
   const navigate = useNavigate();
   const emailRef = useRef(null);
+  const [res, setRes] = useState(null);
   const passwordRef = useRef(null);
 
   //verification
@@ -41,6 +42,7 @@ const Login = () => {
         body: JSON.stringify(data),
       });
       const result = await res.json();
+      setRes(result)
       if (result.success) {
         navigate("/app");
       } else {
@@ -63,22 +65,22 @@ const Login = () => {
           <input
             type="email"
             name="email"
-            placeholder="email"
+            placeholder={res?.errors?.errors[1]?.msg || "email"} 
             ref={emailRef}
-            className="input w-full"
-          />
+            className={`input w-full ${res?.status == 500 && "placeholder:text-red-500" }`}
+         />
         </div>
         <div className="labelwrap">
           <label htmlFor="password">Password</label>
           <input
-            className="input w-full"
+            className={`input w-full ${res?.status == 500 && "placeholder:text-red-500" }`}
             type="password"
             name="password"
-            placeholder="password"
+            placeholder={res?.errors?.errors[2]?.msg || "password"} 
             ref={passwordRef}
           />
         </div>
-
+<p className="text-red-500 text-sm">{res?.message}</p>
         <button type="submit" className="button">
           login
         </button>

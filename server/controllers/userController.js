@@ -8,18 +8,18 @@ const register = async (req, res, next) => {
   //register validation
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    const error = new Error(
-      "fields are required failed from express-validator"
-    );
-    error.status = 500;
-    return next(error);
+    const error = {
+      status: 500,
+      errors
+    };
+    return res.json(error);
   }
 
   const { name, email, password } = req.body;
 
   //checking if email exist or not
-  const result = await db.execute("select * from users where email=?", [email]);
-  if (result[0][0].email) {
+  const [rows] = await db.execute("select * from users where email=?", [email]);
+  if (rows.length > 0) {
     const error = new Error("user existed");
     error.status = 500;
     return next(error);
@@ -65,9 +65,11 @@ const login = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    const error = new Error("fields are required failed");
-    error.status = 500;
-    return next(error);
+    const error = {
+      status: 500,
+      errors
+    };
+    return res.json(error);
   }
 
   const { email, password } = req.body;
