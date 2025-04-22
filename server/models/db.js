@@ -4,7 +4,7 @@ const path=require("path")
 const fs=require("fs")
 
 const pool=mysql.createPool({
-    port:process.env.PORT,
+    port:process.env.DBPORT,
     host:process.env.HOST,
     user:process.env.USER,
     password:process.env.PASSWORD,
