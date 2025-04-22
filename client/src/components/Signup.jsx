@@ -46,6 +46,7 @@ const Signup = () => {
       });
 
       const result = await res.json();
+      console.log(result)
       setRes(result);
 
       if (result.status === 201) {
