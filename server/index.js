@@ -32,4 +32,4 @@ app.use(userRouter)
 app.use(errorhandling)
 
 const PORT=process.env.PORT || 3000
-app.listen(PORT,()=> console.log("server is running",port))
+app.listen(PORT,()=> console.log("server is running",PORT))
