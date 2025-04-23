@@ -25,6 +25,7 @@ const App = () => {
           credentials: "include",
         });
         const result = await res.json();
+        console.log(result)
         if (!result.auth) {
           navigate("/");
         }
@@ -45,7 +46,7 @@ const App = () => {
   useEffect(() => {
     getData();
 
-    return () => setSite([]);
+    // return () => setSite([]);
   }, []);
 
   //adding new site
@@ -89,6 +90,8 @@ const App = () => {
         },
         body: JSON.stringify({ site_path: sitepath, name }),
       });
+      const data=await res.json()
+      console.log(data)
     } catch (err) {
       console.log(err);
     }

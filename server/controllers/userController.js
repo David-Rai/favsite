@@ -90,6 +90,7 @@ const login = async (req, res, next) => {
       const secretKey = process.env.SECRET;
       const token = jwt.sign(payload, secretKey);
 
+
       res.cookie("token", token, {
         path: "/",
         sameSite: "lax",
@@ -127,7 +128,6 @@ const verify = (req, res) => {
 
 //loging out
 const logout=(req,res)=>{
-  console.log(req.cookies)
 
   res.clearCookie('token', {
     httpOnly: true,

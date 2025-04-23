@@ -9,6 +9,8 @@ require("dotenv").config()
 
 const corsOptions={
 origin: [
+  'http://localhost:5173',
+  'http://localhost:5173/',
     'https://favsite.netlify.app',
     'https://favsite.netlify.app/' // Ensure both formats are allowed if necessary
   ],
