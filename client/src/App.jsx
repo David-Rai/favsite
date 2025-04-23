@@ -16,22 +16,22 @@ const App = () => {
   const [updating, setUpdating] = useState(false);
   const [id, setID] = useState(null);
 
-  
-    //verification
-    useEffect(() => {
-      const verify = async () => {
-        const res = await fetch(`${serverPath}/verify`, {
-          method: "GET",
-          credentials: "include",
-        });
-        const result = await res.json();
-        console.log(result)
-        if (!result.auth) {
-          navigate("/");
-        }
-      };
-      verify();
-    }, []);
+
+  //verification
+  useEffect(() => {
+    const verify = async () => {
+      const res = await fetch(`${serverPath}/verify`, {
+        method: "GET",
+        credentials: "include",
+      });
+      const result = await res.json();
+      console.log(result)
+      if (!result.auth) {
+        navigate("/");
+      }
+    };
+    verify();
+  }, []);
 
   async function getData() {
     const res = await fetch(`${serverPath}/get`, {
@@ -46,11 +46,12 @@ const App = () => {
   useEffect(() => {
     getData();
 
-    // return () => setSite([]);
+    return () => setSite([]);
   }, []);
 
   //adding new site
   const handleAdd = () => {
+    console.log("adding the new ")
     formRef.current.classList.toggle("hidden");
     formRef.current.classList.toggle("flex");
   };
@@ -90,7 +91,7 @@ const App = () => {
         },
         body: JSON.stringify({ site_path: sitepath, name }),
       });
-      const data=await res.json()
+      const data = await res.json()
       console.log(data)
     } catch (err) {
       console.log(err);
@@ -147,7 +148,7 @@ const App = () => {
     <>
       <main className="h-screen bg-softslate w-full flex px-[20px] flex-col items-center justify-center">
 
-       {/* LOGOUT */}
+        {/* LOGOUT */}
         <div className="h-full w-full absolute top-0 right-0 flex items-start p-[20px] justify-end">
           <button className="button w-[120px]" onClick={() => handlelogout()}>
             Logout
@@ -233,8 +234,8 @@ const App = () => {
             <div
               onClick={handleAdd}
               className="add h-[50px] w-[50px]
-            rounded-full
-             bg-[#474648] flex items-center justify-center"
+               rounded-full
+              bg-[#474648] flex items-center justify-center"
             >
               <IoMdAdd size={30} className="text-white" />
             </div>
